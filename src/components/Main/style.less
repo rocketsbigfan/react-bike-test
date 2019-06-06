@@ -1,0 +1,32 @@
+.main {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  &-side {
+    width: 180px;
+    height: 100%;
+    overflow-y: auto;
+    .logo {
+      height: 72px;
+      line-height: 72px;
+      text-align: center;
+      color: #ffffff;
+    }
+  }
+  &-content {
+    flex: 1;
+    &-header {
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      background: #ffffff;
+      .logout {
+        margin-left: 20px;
+        color: red;
+        cursor: pointer;
+      }
+    }
+  }
+}
