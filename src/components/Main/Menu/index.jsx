@@ -1,17 +1,13 @@
 import React, { Component } from 'react'
 import { Menu, Icon } from 'antd'
+import { Link, withRouter } from 'react-router-dom'
 const { SubMenu } = Menu
-// import {
-//   BrowserRouter as Router,
-//   Route,
-//   Switch,
-// } from 'react-router-dom'
 
-export default class extends Component {
+class NavLeft extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      current: '/home',
+      current: this.props.location.pathname,
     }
   }
 
@@ -33,12 +29,15 @@ export default class extends Component {
           </SubMenu>
         )
       }
-      return <Menu.Item key={item.key}>{item.title}</Menu.Item>
+      return (
+        <Menu.Item key={item.key}>
+          <Link to={item.key}>{item.title}</Link>
+        </Menu.Item>
+      )
     })
   }
 
   handleClick = props => {
-    // console.log(props)
     this.setState({
       current: props.key,
     })
@@ -59,3 +58,4 @@ export default class extends Component {
     )
   }
 }
+export default withRouter(NavLeft)

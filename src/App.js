@@ -1,12 +1,6 @@
 import React from 'react'
-import Main from './components/Main'
-
-function App() {
-  return (
-    <div className="App">
-      <Main />
-    </div>
-  )
+function App(props) {
+  return <div className="App">{props.children}</div>
 }
 
 export default App

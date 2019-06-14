@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
-// import { Row, Col } from 'antd'
 import Header from './Header'
+import Menu from './Menu'
+import TagsNav from './TagsNav'
 import { Layout } from 'antd'
 import './style.less'
-import Menu from './Menu'
-const { Footer, Sider, Content } = Layout
-// import {
-//   BrowserRouter as Router,
-//   Route,
-//   Switch,
-// } from 'react-router-dom'
+import '@/assets/css/index.less'
+
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+// import axios from '@/axios/index.js'
+const { Sider, Content } = Layout
 
 export default class Main extends Component {
   constructor(props) {
@@ -28,7 +27,9 @@ export default class Main extends Component {
         </Sider>
         <Layout className="main-content">
           <Header />
-          <div className="main-content-box">content</div>
+          <TagsNav />
+
+          <Content className="main-content-box">{this.props.children}</Content>
         </Layout>
       </Layout>
     )
