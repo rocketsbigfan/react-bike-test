@@ -5,7 +5,10 @@ import Modal from '@/pages/ui/modals'
 import Button from '@/pages/ui/buttons'
 import Loading from '@/pages/ui/loadings'
 import Notifications from '@/pages/ui/notifications'
+import Carousel from '@/pages/ui/carousel'
 import Messages from '@/pages/ui/messages'
+import FormLogin from '@/pages/form/login'
+import Reg from '@/pages/form/reg'
 import {
   BrowserRouter as Router,
   Route,
@@ -55,7 +58,10 @@ export default class ARouter extends Component {
                     <Route path="/ui/loadings" component={Loading} />
                     <Route path="/ui/notification" component={Notifications} />
                     <Route path="/ui/messages" component={Messages} />
-                    <Redirect to="/home" />
+                    <Route path="/ui/carousel" component={Carousel} />
+                    <Route path="/form/login" component={FormLogin} />
+                    <Route path="/form/reg" component={Reg} />
+                    {/* <Redirect to="/home" component={Home} /> */}
                   </Switch>
                 </Main>
               )}

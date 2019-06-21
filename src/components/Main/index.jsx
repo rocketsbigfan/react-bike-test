@@ -5,8 +5,6 @@ import TagsNav from './TagsNav'
 import { Layout } from 'antd'
 import './style.less'
 import '@/assets/css/index.less'
-
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 // import axios from '@/axios/index.js'
 const { Sider, Content } = Layout
 

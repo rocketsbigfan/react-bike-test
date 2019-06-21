@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom'
 import './index.less'
 import * as serviceWorker from './serviceWorker'
 import Router from '@/router'
+import moment from 'moment'
+import 'moment/locale/zh-cn'
+moment.locale('zh-cn')
 
 ReactDOM.render(<Router />, document.getElementById('root'))
 
