@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { Menu, Icon } from 'antd'
+import { Menu } from 'antd'
 import { Link, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { ChangeTagNavText } from '@/redux/actionCreator'
 const { SubMenu } = Menu
 
 class NavLeft extends Component {
@@ -12,6 +14,7 @@ class NavLeft extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props)
     import('@/config/menuConfig').then(menuConfig => {
       let Menu = this.renderMenu(menuConfig.default)
       this.setState({
@@ -30,16 +33,17 @@ class NavLeft extends Component {
         )
       }
       return (
-        <Menu.Item key={item.key}>
+        <Menu.Item title={item.title} key={item.key}>
           <Link to={item.key}>{item.title}</Link>
         </Menu.Item>
       )
     })
   }
 
-  handleClick = props => {
+  handleClick = ({ key, item }) => {
+    this.props.changeTagNav(item.props.title)
     this.setState({
-      current: props.key,
+      current: key,
     })
   }
 
@@ -58,4 +62,16 @@ class NavLeft extends Component {
     )
   }
 }
-export default withRouter(NavLeft)
+const mapDispatchToProps = dispatch => {
+  return {
+    changeTagNav: tagNav => {
+      dispatch(ChangeTagNavText(tagNav))
+    },
+  }
+}
+export default connect(
+  _ => {
+    return {}
+  },
+  mapDispatchToProps,
+)(withRouter(NavLeft))

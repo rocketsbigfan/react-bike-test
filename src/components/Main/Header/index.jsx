@@ -1,21 +1,13 @@
 import React, { Component } from 'react'
 import { Breadcrumb } from 'antd'
+import { connect } from 'react-redux'
 // import {
 //   BrowserRouter as Router,
 //   Route,
 //   Switch,
 // } from 'react-router-dom'
 
-export default class Header extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      userName: 'didi',
-    }
-  }
-
-  componentDidMount() {}
-
+class Header extends Component {
   render() {
     return (
       <header className="main-content-header">
@@ -24,10 +16,16 @@ export default class Header extends Component {
           <Breadcrumb.Item>An Application</Breadcrumb.Item>
         </Breadcrumb>
         <div className="right">
-          <span className="name">您好! {this.state.userName}</span>
+          <span className="name">您好! {this.props.name}</span>
           <span className="logout">退出</span>
         </div>
       </header>
     )
   }
 }
+const mapStateToProps = state => {
+  return {
+    name: state.value,
+  }
+}
+export default connect(mapStateToProps)(Header)

@@ -1,0 +1,41 @@
+.login-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100vh;
+  background: -webkit-linear-gradient(
+    132deg,
+    #3bcdcd,
+    #50a7fd
+  ); /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(
+    132deg,
+    #3bcdcd,
+    #50a7fd
+  ); /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(
+    132deg,
+    #3bcdcd,
+    #50a7fd
+  ); /* Firefox 3.6 - 15 */
+  background: linear-gradient(132deg, #3bcdcd, #50a7fd); /* 标准的语法 */
+  z-index: 2;
+  &-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: url('../../assets/images/login-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.14;
+  }
+  .login-box {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 160px;
+    width: 380px;
+  }
+}

@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { notification } from 'antd'
-const baseURL = ''
-
+const baseURL = 'https://easy-mock.com/mock/5d15b7918a8c046db3807fab/bike/'
 class HttpRequest {
   constructor(baseUrl = baseURL) {
     this.baseUrl = baseUrl

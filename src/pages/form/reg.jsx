@@ -10,7 +10,9 @@ import {
   Select,
   Checkbox,
 } from 'antd'
+import { connect } from 'react-redux'
 import moment from 'moment'
+import { changeReduxTest } from '@/redux/actionCreator'
 const FormItem = Form.Item
 const RadioGroup = Radio.Group
 const TextArea = Input.TextArea
@@ -23,8 +25,6 @@ class Register extends Component {
       btnLoading: false,
     }
   }
-
-  componentDidMount() {}
 
   disabledEndDate = time => {
     return moment(time).valueOf() >= new Date().valueOf()
@@ -145,13 +145,34 @@ class Register extends Component {
   }
 }
 
-const FormRegister = Form.create()(Register)
+const FormRegister = Form.create({
+  onFieldsChange: (props, changedFields) => {
+    if (changedFields.user) {
+      props.onFormChange(changedFields.user.value)
+    }
+  },
+})(Register)
 
-const CardRegister = () => {
+const CardRegister = props => {
   return (
     <Card title="注册表单">
-      <FormRegister />
+      <FormRegister onFormChange={props.changeTestValue} />
     </Card>
   )
 }
-export default CardRegister
+const mapStateToProps = state => {
+  return {
+    value: state.value,
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    changeTestValue: value => {
+      dispatch(changeReduxTest(value))
+    },
+  }
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CardRegister)
