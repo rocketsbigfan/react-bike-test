@@ -14,6 +14,7 @@ import Reg from '@/pages/form/reg'
 import Bar from '@/pages/charts/bar'
 import Login from '@/pages/login'
 import BasicTable from '@/pages/table/basic'
+import User from '@/pages/user/user'
 import { message } from 'antd'
 import {
   BrowserRouter as Router,
@@ -81,6 +82,7 @@ const MainRoute = _ => {
         <Route path="/form/login" component={FormLogin} />
         <Route path="/form/reg" component={Reg} />
         <Route path="/table/basic" component={BasicTable} />
+        <Route path="/user" component={User} />
         <Route path="/charts/bar" component={Bar} />
         {/* <Redirect to="/home" component={Home} /> */}
       </Switch>
