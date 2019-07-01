@@ -1,5 +1,5 @@
 import * as types from './actionType'
-import { getToken, setToken } from '@/libs/utils'
+import { getToken } from '@/libs/utils'
 let initalState = {
   value: '初始值',
   tagNav: '首页',
@@ -15,7 +15,6 @@ export default function(state = initalState, action) {
       newState = Object.assign({}, state, { tagNav: action.tagNav })
       break
     case types.CHANGE_TOKEN:
-      setToken(action.token)
       newState = Object.assign({}, newState, { token: action.token })
       break
     default:

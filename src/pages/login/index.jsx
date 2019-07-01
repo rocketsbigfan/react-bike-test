@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Card, Form, Input, Button, message } from 'antd'
-import { ChangeToken } from '@/redux/actionCreator'
+import { AsyncLogin } from '@/redux/actionCreator'
 import './style.less'
 import axios from '@/axios'
 import { withRouter } from 'react-router-dom'
@@ -15,27 +15,24 @@ class LoginForm extends Component {
   }
   // 箭头函数影响性能
   handleClick = e => {
-    this.setState({
-      loading: true,
-    })
     e.preventDefault()
     const { validateFields } = this.props.form
     validateFields((err, value) => {
       if (!err) {
-        axios.get('/login').then(res => {
-          if (res.data.code === 200) {
-            this.setState(
-              {
-                loading: false,
-              },
-              _ => {
-                this.props.onSubmitSuccess(res.data.result.token)
-              },
-            )
+        this.setState({
+          loading: true,
+        })
+        this.props
+          .onSubmitSuccess()
+          .then(res => {
+
+            this.setState({
+              loading: false,
+            })
             // 登录成功跳转
             this.props.history.push('/home')
-          }
-        })
+          })
+          .catch(e => message.error('请输入正确的用户名和密码'))
       } else {
         message.error('请输入完整信息！')
       }
@@ -101,13 +98,13 @@ class LoginBox extends Component {
   componentDidMount() {}
 
   render() {
-    const { changeToken } = this.props
+    const { asyncLogin } = this.props
     const { history } = this.props
     return (
       <section className="login-wrapper">
         <section className="login-wrapper-bg" />
         <Card title="登录" className="login-box">
-          <Login history={history} onSubmitSuccess={changeToken} />
+          <Login history={history} onSubmitSuccess={asyncLogin} />
         </Card>
       </section>
     )
@@ -115,8 +112,8 @@ class LoginBox extends Component {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    changeToken: token => {
-      dispatch(ChangeToken(token))
+    asyncLogin: token => {
+      return dispatch(AsyncLogin(token))
     },
   }
 }
