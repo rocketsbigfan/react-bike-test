@@ -20,6 +20,12 @@ export const ChangeToken = token => {
     token,
   }
 }
+export const ChangeMenu = menu => {
+  return {
+    type: types.CHANGE_MENU,
+    menu,
+  }
+}
 // 使用redux-thunk， 异步封装action
 export const AsyncLogin = _ => {
   return dispatch => {

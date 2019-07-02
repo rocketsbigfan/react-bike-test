@@ -1,9 +1,10 @@
 import * as types from './actionType'
-import { getToken } from '@/libs/utils'
+import { getToken, getMenu } from '@/libs/utils'
 let initalState = {
   value: '初始值',
   tagNav: '首页',
   token: getToken(),
+  menu: getMenu(),
 }
 export default function(state = initalState, action) {
   let newState = {}
@@ -16,6 +17,9 @@ export default function(state = initalState, action) {
       break
     case types.CHANGE_TOKEN:
       newState = Object.assign({}, newState, { token: action.token })
+      break
+    case types.CHANGE_MENU:
+      newState = Object.assign({}, newState, { menu: action.menu })
       break
     default:
       newState = Object.assign({}, state)

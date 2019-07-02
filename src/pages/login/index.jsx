@@ -15,24 +15,27 @@ class LoginForm extends Component {
   }
   // 箭头函数影响性能
   handleClick = e => {
+    this.setState({
+      loading: true,
+    })
     e.preventDefault()
     const { validateFields } = this.props.form
     validateFields((err, value) => {
       if (!err) {
-        this.setState({
-          loading: true,
-        })
-        this.props
-          .onSubmitSuccess()
-          .then(res => {
-
+        axios.get('/login').then(res => {
+          if (res.data.code === 200) {
             this.setState({
               loading: false,
             })
-            // 登录成功跳转
-            this.props.history.push('/home')
-          })
-          .catch(e => message.error('请输入正确的用户名和密码'))
+            this.props.onSubmitSuccess().then(res => {
+              this.setState({
+                loading: false,
+              })
+              // 登录成功跳转
+              this.props.history.push('/home')
+            })
+          }
+        })
       } else {
         message.error('请输入完整信息！')
       }
