@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PureComponent } from 'react'
 import { Provider, connect } from 'react-redux'
 import store from '../redux/store'
 import Main from '@/components/Main'
@@ -43,7 +43,7 @@ const NoMatch = ({ location }) => {
     </div>
   )
 }
-class Auth extends Component {
+class Auth extends PureComponent {
   constructor() {
     super()
     this.state = {

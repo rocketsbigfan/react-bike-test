@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Card, Form, Input, Button, message } from 'antd'
-import { AsyncLogin } from '@/redux/actionCreator'
+import { AsyncLogin, ChangeMenu } from '@/redux/actionCreator'
+import { setMenu } from '@/libs/utils'
 import './style.less'
 import axios from '@/axios'
 import { withRouter } from 'react-router-dom'
@@ -15,24 +16,30 @@ class LoginForm extends Component {
   }
   // 箭头函数影响性能
   handleClick = e => {
-    this.setState({
-      loading: true,
-    })
     e.preventDefault()
     const { validateFields } = this.props.form
+    const { asyncLogin, history, changeMenu } = this.props
     validateFields((err, value) => {
       if (!err) {
+        this.setState({
+          loading: true,
+        })
         axios.get('/login').then(res => {
           if (res.data.code === 200) {
             this.setState({
               loading: false,
             })
-            this.props.onSubmitSuccess().then(res => {
+            asyncLogin().then(res => {
               this.setState({
                 loading: false,
               })
-              // 登录成功跳转
-              this.props.history.push('/home')
+              // ajax请求异步信息
+              import('@/config/menuConfig').then(res => {
+                setMenu(res.default)
+                changeMenu(res.default)
+                // 登录成功跳转
+                history.push('/home')
+              })
             })
           }
         })
@@ -101,13 +108,16 @@ class LoginBox extends Component {
   componentDidMount() {}
 
   render() {
-    const { asyncLogin } = this.props
-    const { history } = this.props
+    const { asyncLogin, changeMenu, history } = this.props
     return (
       <section className="login-wrapper">
         <section className="login-wrapper-bg" />
         <Card title="登录" className="login-box">
-          <Login history={history} onSubmitSuccess={asyncLogin} />
+          <Login
+            history={history}
+            changeMenu={changeMenu}
+            asyncLogin={asyncLogin}
+          />
         </Card>
       </section>
     )
@@ -117,6 +127,9 @@ const mapDispatchToProps = dispatch => {
   return {
     asyncLogin: token => {
       return dispatch(AsyncLogin(token))
+    },
+    changeMenu: menu => {
+      dispatch(ChangeMenu(menu))
     },
   }
 }

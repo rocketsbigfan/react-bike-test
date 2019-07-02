@@ -3,7 +3,6 @@ import { Menu } from 'antd'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { ChangeTagNavText, ChangeMenu } from '@/redux/actionCreator'
-import { setMenu } from '@/libs/utils'
 const { SubMenu } = Menu
 
 class NavLeft extends Component {
@@ -15,15 +14,14 @@ class NavLeft extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
-    import('@/config/menuConfig').then(menuConfig => {
-      this.props.changeMenu(menuConfig.default)
-      setMenu(menuConfig.default)
-      let Menu = this.renderMenu(menuConfig.default)
-      this.setState({
-        Menu,
-      })
+    let menu = this.props.menu
+    // import('@/config/menuConfig').then(menuConfig => {
+    //   this.props.changeMenu(menuConfig.default)
+    let Menu = this.renderMenu(menu)
+    this.setState({
+      Menu,
     })
+    // })
   }
 
   renderMenu = menu => {
