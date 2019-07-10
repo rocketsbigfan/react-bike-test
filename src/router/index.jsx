@@ -16,6 +16,7 @@ import Login from '@/pages/login'
 import BasicTable from '@/pages/table/basic'
 import User from '@/pages/user/user'
 import Permission from '@/pages/permission/permission'
+import NoMatch from '@/pages/error-page/noMatch'
 import { message } from 'antd'
 import {
   BrowserRouter as Router,
@@ -34,26 +35,11 @@ const About = ({ location }) => (
     </h3>
   </div>
 )
-const NoMatch = ({ location }) => {
-  return (
-    <div>
-      <h3>
-        404，不存在路由 <code>{location.pathname}</code>
-      </h3>
-    </div>
-  )
-}
 class Auth extends PureComponent {
-  constructor() {
-    super()
-    this.state = {
-      isLoggied: sessionStorage.getItem('token') ? true : false,
-    }
-  }
   render() {
-    const pathname = this.props.location.pathname
+    // const pathname = this.props.location.pathname
     const { component: Component, menu, ...rest } = this.props
-    const { isLoggied } = this.state
+    const isLoggied = sessionStorage.getItem('token') ? true : false
     // const hasPermission = checkRouter(menu, pathname)
     // console.log('拥有权限 ==> ', hasPermission)
     !isLoggied && message.error('未授权的登录')
@@ -122,12 +108,13 @@ export default class ARouter extends Component {
             <Switch>
               <Route path="/about" component={About} />
               <Route path="/login" component={Login} />
+              <Route path="/nomatch" component={NoMatch} />
               <Route
                 path="/noPermission"
                 render={_ => <div>您没有权限访问</div>}
               />
-              <AuthRouter path="/" component={MainRoute} />)
-              {/* <Route
+              {/* <AuthRouter path="/" component={MainRoute} /> */}
+              <Route
                 path="/"
                 render={_ => {
                   return (
@@ -152,12 +139,13 @@ export default class ARouter extends Component {
                         <AuthRouter path="/user" component={User} />
                         <AuthRouter path="/permission" component={Permission} />
                         <AuthRouter path="/charts/bar" component={Bar} />
-                        <AuthRouter path="/" component={Home} />
+                        <Redirect to="/nomatch" />
+                        {/* <Route path="/" component={NoMatch} /> */}
                       </Switch>
                     </Main>
                   )
                 }}
-              /> */}
+              />
             </Switch>
           </App>
         </Router>
